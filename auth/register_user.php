@@ -55,18 +55,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <title>Register User</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/register-style.css">
 </head>
 <body>
-    <h2>Register User</h2>
     <?php if ($message): ?>
         <p><?= htmlspecialchars($message) ?></p>
     <?php endif; ?>
 
-    <form method="POST">
-        <input type="text" name="username" placeholder="Username" required><br>
-        <input type="password" name="password" placeholder="Password" required><br>
+    <div class="overlay"></div>
+    <div class="register-wrapper">
+        <h1 class="register-title">Register User</h1>
+        <form method="POST">
+        <label for="username">Username</label>
+        <input id="username" type="text" name="username" placeholder="Username" required>
+        <label for="password">Password</label>
+        <input id="password" name="password" placeholder="Password" required>
         <button type="submit">Register</button>
-    </form>
+        </form>
+    </div>
 
     <a href="login_user.php">Login User</a>
 </body>

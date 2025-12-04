@@ -1,0 +1,379 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+    background-image: radial-gradient(circle at center, #1a0000 0%, #000 100%);
+    padding: 40px 20px;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="1" fill="%23ff0000" opacity="0.1"/></svg>');
+    background-size: 50px 50px;
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+}
+
+/* Container wrapper - untuk halaman dengan class login-container atau register-container */
+.login-container,
+.register-container {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 60px 50px;
+    border-radius: 20px;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.5),
+                inset 0 0 60px rgba(255, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.login-container::before,
+.register-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Untuk halaman tanpa wrapper container */
+body > h1,
+body > h2 {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 40px 50px;
+    border-radius: 20px 20px 0 0;
+    border: 3px solid #ff0000;
+    border-bottom: none;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.5),
+                inset 0 0 60px rgba(255, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8),
+                 0 0 40px rgba(255, 0, 0, 0.5);
+    margin-bottom: 0;
+}
+
+body > p {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 0 50px;
+    border-left: 3px solid #ff0000;
+    border-right: 3px solid #ff0000;
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+}
+
+body > form {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 40px 50px;
+    border-left: 3px solid #ff0000;
+    border-right: 3px solid #ff0000;
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+}
+
+body > a,
+body > br + a {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 15px 50px;
+    border-left: 3px solid #ff0000;
+    border-right: 3px solid #ff0000;
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 0;
+    display: block;
+    text-align: center;
+}
+
+body > a:last-of-type,
+body > br:last-of-type + a {
+    border-radius: 0 0 20px 20px;
+    border-bottom: 3px solid #ff0000;
+}
+
+/* Heading styles */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8),
+                 0 0 40px rgba(255, 0, 0, 0.5);
+}
+
+.login-container h1,
+.login-container h2,
+.register-container h1,
+.register-container h2 {
+    background: none;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* Form elements */
+form {
+    position: relative;
+}
+
+.login-container form,
+.register-container form {
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 18px 20px;
+    margin-bottom: 30px;
+    border: 2px solid #ff0000;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder,
+input[type="email"]::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+    border-color: #ff3333;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6),
+                inset 0 0 10px rgba(255, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+button[type="submit"],
+input[type="submit"] {
+    width: 100%;
+    padding: 18px;
+    background: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+button[type="submit"]:hover,
+input[type="submit"]:hover {
+    background: #cc0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8),
+                0 0 50px rgba(255, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+button[type="submit"]:active,
+input[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Links */
+a {
+    color: #ff6666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #ff0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+}
+
+.login-container a,
+.register-container a {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* Error messages */
+p[style*="color:red"],
+.error {
+    background: rgba(255, 0, 0, 0.2) !important;
+    border: 2px solid #ff0000 !important;
+    border-radius: 10px;
+    padding: 15px !important;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #ff6666 !important;
+    animation: errorShake 0.5s ease;
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+/* Success messages */
+p[style*="color:green"],
+.success {
+    background: rgba(0, 255, 0, 0.1) !important;
+    border: 2px solid #00ff00 !important;
+    border-radius: 10px;
+    padding: 15px !important;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #66ff66 !important;
+}
+
+/* Index page styles */
+body > ul {
+    background: rgba(20, 0, 0, 0.8);
+    padding: 40px 50px;
+    border-radius: 0 0 20px 20px;
+    border: 3px solid #ff0000;
+    border-top: none;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.5),
+                inset 0 0 60px rgba(255, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+    list-style: none;
+}
+
+body > ul li {
+    margin-bottom: 20px;
+}
+
+body > ul li:last-child {
+    margin-bottom: 0;
+}
+
+body > ul li a {
+    display: block;
+    padding: 18px;
+    background: #ff0000;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+body > ul li a:hover {
+    background: #cc0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.8),
+                0 0 50px rgba(255, 0, 0, 0.4);
+    transform: translateY(-2px);
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .login-container,
+    .register-container,
+    body > h1,
+    body > h2,
+    body > form,
+    body > ul {
+        padding: 40px 30px;
+    }
+    
+    h1, h2 {
+        font-size: 36px;
+    }
+    
+    body > h1,
+    body > h2 {
+        padding: 30px;
+    }
+}
