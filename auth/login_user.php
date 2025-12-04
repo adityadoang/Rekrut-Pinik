@@ -36,28 +36,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Login User</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/login-style.css">
+    <link rel="stylesheet" href="../assets/login-style.css">
 </head>
 <body>
-    <?php if ($error): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-    <?php endif; ?>
 
-    <div class="overlay"></div>
-        <div class="login-wrapper">
-            <h1 class="login-title">Login User</h1>
-            <form method="POST">
-                <label for="username">Username</label>
-                <input id="username" type="text" name="username" placeholder="Username" required>
-                <label for="password">Password</label>
-                <input id="password" type="password" name="password" placeholder="Password" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
+    <div class="login-wrapper">
+        <h1 class="login-title">Login User</h1>
+        <?php if ($error): ?>
+            <p class="message" style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <form method="POST">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" placeholder="Username" required>
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <a class="button" href="register_user.php">Register</a>
+    
+        <a class="button" href="login_admin.php">Login sebagai Admin</a>
     </div>
 
-    <a href="register_user.php">Register</a>
-    <br>
-    <a href="login_admin.php">Login sebagai Admin</a>
+
 </body>
 </html>

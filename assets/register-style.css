@@ -1,49 +1,49 @@
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+font-family: 'Inter', sans-serif;
+color: #fff;
+background: #111;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
 }
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+position: absolute;
+inset: 0;
+background: rgba(0, 0, 0, 0.5);
 }
 .register-wrapper {
-    background: rgba(0, 0, 0, 0.35) url('phoenix-bg.jpeg') center/cover no-repeat;
-    padding: 40px;
-    border-radius: 16px;
-    border: 2px solid #981008;
-    box-shadow: 0 0 40px black;
-    max-width: 500px;
-    width: 100%;
+background: rgba(0, 0, 0, 0.35) url('phoenix-bg.jpeg') center/cover no-repeat;
+padding: 40px;
+border-radius: 16px;
+border: 2px solid #981008;
+box-shadow: 0 0 40px black;
+max-width: 500px;
+width: 100%;
 }
 .register-title {
-    font-family: 'Press Start 2P', sans-serif;
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
+font-family: 'Press Start 2P', sans-serif;
+text-align: center;
+font-size: 32px;
+margin-bottom: 30px;
 }
 label {
-    font-size: 18px;
-    margin-bottom: 8px;
-    display: block;
-    font-family: 'Courier New', Courier, monospace;
+font-size: 18px;
+margin-bottom: 8px;
+display: block;
+font-family: 'Courier New', Courier, monospace;
 }
 input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    border: 2px solid #981008;
-    background: rgba(0, 0, 0, 0.55);
+width: 100%;
+padding: 12px;
+margin-bottom: 20px;
+border-radius: 20px;
+border: 2px solid #981008;
+background: rgba(0, 0, 0, 0.55);
+color: white;
 }
-button {
+button, .button {
     font-family: 'Courier New', Courier, monospace;
     display: block;
     margin: 0 auto;
@@ -54,7 +54,18 @@ button {
     border-radius: 20px;
     cursor: pointer;
     font-size: 18px;
+    width: fit-content;
 }
-button:hover {
+
+.button {
+    margin-top: 1em;
+}
+
+button:hover, .button:hover {
     filter: brightness(1.1);
+}
+
+.message {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }

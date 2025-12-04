@@ -1,5 +1,4 @@
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
     body {
     font-family: 'Inter', sans-serif;
     color: #fff;
@@ -42,8 +41,9 @@ input {
     border-radius: 20px;
     border: 2px solid #981008;
     background: rgba(0, 0, 0, 0.55);
+    color: white;
 }
-button {
+button, .button {
     font-family: 'Courier New', Courier, monospace;
     display: block;
     margin: 0 auto;
@@ -54,7 +54,18 @@ button {
     border-radius: 20px;
     cursor: pointer;
     font-size: 18px;
+    width: fit-content;
 }
-button:hover {
+
+.button {
+    margin-top: 1em;
+}
+
+button:hover, .button:hover {
     filter: brightness(1.1);
+}
+
+.message {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
