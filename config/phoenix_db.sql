@@ -118,7 +118,7 @@ CREATE TABLE `user_phoenix` (
   `user_id` int NOT NULL,
   `phoenix_id` int NOT NULL,
   `recruited_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_phoenix`
@@ -142,7 +142,7 @@ CREATE TABLE `user_quests` (
   `is_correct` tinyint(1) DEFAULT '0',
   `answered_option` enum('A','B','C','D') DEFAULT NULL,
   `completed_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_quests`
