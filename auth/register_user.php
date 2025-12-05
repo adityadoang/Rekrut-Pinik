@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Register User</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/register-style.css">
+    <link rel="stylesheet" href="assets/register-stylexs.css">
 </head>
 <body>
     <?php if ($message): ?>
