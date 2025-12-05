@@ -1,0 +1,404 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #B2B1B380;
+    color: #fff;
+}
+
+header {
+    background-color: rgb(175, 72, 38);
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #ff6600;
+}
+
+
+.hero-section {
+    position: relative;
+    height: calc(100vh - 70px);
+    background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
+    background-image: url('phoenix-icon.jpeg');
+    border-radius: 0px 0px 100px 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.content-wrapper {
+    position: relative;
+    padding: 30px 50px;
+    z-index: 1;
+    background: #B2B1B380;
+    width: fit-content;
+    margin-top: 2em;
+    border-radius: 0px 200px 200px 100px;
+    display: flex;
+    align-items: center;
+    min-width: 30em;
+    gap: 4em;
+    border: 2px solid rgb(175, 72, 38); 
+}
+
+.content-wrapper .left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.points-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 40px;
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+.coin-icon {
+    font-size: 30px;
+}
+
+.points-amount {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6600;
+}
+
+.cta-card {
+    display: inline-block;
+    padding: 25px 40px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cta-text {
+    font-size: 24px;
+    line-height: 1.2;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.phoenix-circle {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 3s infinite;
+}
+
+.phoenix-icon {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20em;
+    aspect-ratio: 1/1;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 40px rgba(255, 102, 0, 0.6),
+                    0 0 80px rgba(255, 102, 0, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(255, 102, 0, 0.8),
+                    0 0 100px rgba(255, 102, 0, 0.6);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .nav-menu {
+        gap: 20px;
+        font-size: 16px;
+    }
+
+    .content-wrapper {
+        padding: 30px 20px;
+    }
+
+    .points-card {
+        padding: 15px 30px;
+    }
+
+    .points-amount {
+        font-size: 28px;
+    }
+
+    .cta-card {
+        padding: 20px 30px;
+    }
+
+    .cta-text {
+        font-size: 22px;
+    }
+
+    .phoenix-circle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .phoenix-icon {
+        width: 130px;
+        height: 130px;
+    }
+}
+
+.recommendation-section {
+    padding: 60px 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 42px;
+    color: #333;
+    margin-bottom: 50px;
+    font-weight: 600;
+}
+
+.phoenix-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.phoenix-card {
+    background: linear-gradient(to bottom, rgba(128, 128, 128, 0.95), rgba(100, 100, 100, 0.95));
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.phoenix-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.card-image {
+    position: relative;
+    width: calc(100% - 30px);
+    height: 480px;
+    background: #000;
+    border-radius: 15px;
+    margin: 15px 15px 0 15px;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-btn:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.heart {
+    color: #ff6600;
+    font-size: 20px;
+}
+
+.favorite-btn:hover .heart {
+    animation: heartbeat 0.6s ease;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.2); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.1); }
+}
+
+.card-footer {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .75em;
+}
+
+.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.price-tag {
+    background: #fff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.coin-small {
+    font-size: 16px;
+}
+
+.price {
+    color: #ff6600;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+    .phoenix-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .content-wrapper {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .nav-menu {
+        gap: 20px;
+        font-size: 16px;
+    }
+
+    .content-wrapper {
+        padding: 30px 20px;
+    }
+
+    .points-card {
+        padding: 15px 30px;
+    }
+
+    .points-amount {
+        font-size: 28px;
+    }
+
+    .cta-card {
+        padding: 20px 30px;
+    }
+
+    .cta-text {
+        font-size: 22px;
+    }
+
+    .phoenix-circle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .phoenix-icon {
+        width: 130px;
+        height: 130px;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .section-title {
+        font-size: 32px;
+        margin-bottom: 30px;
+    }
+
+    .phoenix-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card-image {
+        height: 250px;
+    }
+}

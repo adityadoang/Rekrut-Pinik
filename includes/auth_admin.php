@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
+    // Ambil data admin berdasarkan username dan role
     $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND role = 'admin'");
     $stmt->bind_param('s', $username);
     $stmt->execute();
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = $result->fetch_assoc();
 
     if ($admin && password_verify($password, $admin['password'])) {
+        // Login sukses
         $_SESSION['user_id'] = $admin['id'];
         $_SESSION['role'] = $admin['role'];
         $_SESSION['username'] = $admin['username'];
