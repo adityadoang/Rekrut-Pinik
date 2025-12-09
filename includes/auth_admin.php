@@ -1,39 +1,15 @@
 <?php
-session_start();
-require_once '../config/db.php';
+// includes/auth_admin.php
 
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    // Ambil data admin berdasarkan username dan role
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND role = 'admin'");
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $admin = $result->fetch_assoc();
-
-    if ($admin && password_verify($password, $admin['password'])) {
-        // Login sukses
-        $_SESSION['user_id'] = $admin['id'];
-        $_SESSION['role'] = $admin['role'];
-        $_SESSION['username'] = $admin['username'];
-        header("Location: ../admin/dashboard.php");
-        exit;
-    } else {
-        $error = "Username atau password salah.";
-    }
+// Mulai session kalau belum
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
-?>
-<h2>Login Admin</h2>
-<?php if ($error): ?>
-    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
-<form method="POST">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
-</form>
-<a href="login_user.php">Login sebagai User</a>
+
+// Cek apakah sudah login dan rolenya admin
+if (!isset($_SESSION['user_id']) || ($_SESSION['role'] ?? '') !== 'admin') {
+    // Redirect ke halaman login admin
+    // Sesuaikan path jika perlu, misalnya: /Rekrut-Pinik/auth/login_admin.php
+    header('Location: ../auth/login_admin.php');
+    exit;
+}
