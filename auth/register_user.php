@@ -56,11 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Register User</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<<<<<<< HEAD
     <link rel="stylesheet" href="assets/register-stylexs.css">
-=======
     <link rel="stylesheet" href="../assets/register-style.css">
->>>>>>> fc4a0f23751022667ebf7115014693b911a5c865
 </head>
 <body>
 

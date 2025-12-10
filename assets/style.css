@@ -30,6 +30,10 @@ header {
     color: white;
 }
 
+.logo img {
+    width: 40px;
+}
+
 .nav-menu {
     display: flex;
     list-style: none;
@@ -49,6 +53,21 @@ header {
     color: #ff6600;
 }
 
+.coin-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.coin-icon img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover
+}
 
 .hero-section {
     position: relative;
@@ -243,7 +262,7 @@ header {
 .card-image {
     position: relative;
     width: calc(100% - 30px);
-    height: 480px;
+    height: 240px;
     background: #000;
     border-radius: 15px;
     margin: 15px 15px 0 15px;

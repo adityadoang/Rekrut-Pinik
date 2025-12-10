@@ -76,3 +76,4 @@ try {
 
 echo "<br><a href='rekrut_pros.php'>Kembali ke daftar rekrut</a><br>";
 echo "<a href='dashboard.php'>Kembali ke Dashboard</a>";
+?>

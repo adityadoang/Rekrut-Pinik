@@ -21,6 +21,7 @@ function getUserPoints($conn, $userId)
     $res = $stmt->get_result()->fetch_assoc();
     $stmt->close();
 
+
     return $res ? (int)$res['points'] : 0;
 }
 

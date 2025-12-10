@@ -67,5 +67,6 @@ button:hover, .button:hover {
 
 .message {
     text-align: center;
+    color: #fff;
     font-family: 'Courier New', Courier, monospace;
 }

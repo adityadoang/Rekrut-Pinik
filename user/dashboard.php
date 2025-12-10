@@ -60,7 +60,7 @@ while ($row = $result->fetch_assoc()) {
 <body>
     <header>
         <nav class="navbar">
-            <div class="logo">LOGO</div>
+            <div class="logo"><img src= "../assets/index-logo.png"></div>
             <ul class="nav-menu">
                 <li><a href="dashboard.php" class="active">Home</a></li>
                 <li><a href="quests.php">Quest</a></li>
@@ -75,7 +75,7 @@ while ($row = $result->fetch_assoc()) {
         <div class="content-wrapper">
             <div class="left">
                 <div class="points-card">
-                    <div class="coin-icon">🪙</div>
+                    <div class="coin-icon"><img src="../assets/point.png"></div>
                     <div class="points-amount">
                         <?php echo htmlspecialchars($points_display); ?>
                     </div>
@@ -85,7 +85,7 @@ while ($row = $result->fetch_assoc()) {
                 </div>
             </div>
             <div class="phoenix-circle">
-                <img src="phoenix-cta.jpeg" alt="Phoenix" class="phoenix-icon">
+                <img src="../assets/phoenix-cta.jpeg" alt="Phoenix" class="phoenix-icon">
             </div>
         </div>
     </main>
@@ -112,14 +112,12 @@ while ($row = $result->fetch_assoc()) {
                                     <?php echo htmlspecialchars($p['name']); ?>
                                 </h3>
                                 <div class="price-tag">
-                                    <span class="coin-small">🪙</span>
+                                    <div class="coin-icon"><img src="../assets/point.png"></div>
                                     <span class="price">
                                         <?php echo htmlspecialchars($p['price']); ?>
                                     </span>
                                 </div>
                                 <!-- optional: tombol rekrut langsung -->
-                                <a href="recruit.php?id=<?php echo (int)$p['id']; ?>"
-                                   class="recruit-btn">Rekrut</a>
                             </div>
                         </div>
                     <?php endforeach; ?>

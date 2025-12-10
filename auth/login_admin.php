@@ -61,100 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login Admin</title>
+    <link rel="stylesheet" href="../assets/login-style.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-        }
-        .container {
-            max-width: 400px;
-            margin: 60px auto;
-            background: #fff;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-        label {
-            display: block;
-            margin-top: 12px;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 8px 10px;
-            margin-top: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            margin-top: 16px;
-            width: 100%;
-            padding: 10px;
-            border: none;
-            background: #007bff;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .error {
-            margin-top: 10px;
-            color: red;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        .link-user {
-            margin-top: 12px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        .link-user a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .link-user a:hover {
-            text-decoration: underline;
-        }
+        
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Login Admin</h2>
+    <div class="login-wrapper">
+        <h1 class="login-title">Login Admin</h1>
+        <?php if ($error): ?>
+            <p class="message" style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+        <form method="POST" action="">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" placeholder="Username" required>
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
 
-    <?php if ($error): ?>
-        <div class="error"><?= htmlspecialchars($error) ?></div>
-    <?php endif; ?>
-
-    <form method="POST" action="">
-        <label for="username">Username</label>
-        <input
-            id="username"
-            type="text"
-            name="username"
-            placeholder="Masukkan username"
-            required
-            value="<?= htmlspecialchars($_POST['username'] ?? '') ?>"
-        >
-
-        <label for="password">Password</label>
-        <input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Masukkan password"
-            required
-        >
-
-        <button type="submit">Login</button>
-    </form>
-
-    <div class="link-user">
-        <p>Bukan admin? <a href="login_user.php">Login sebagai User</a></p>
+        <a class="button" href="login_user.php">Login sebagai User</a></p>
     </div>
 </div>
 </body>
