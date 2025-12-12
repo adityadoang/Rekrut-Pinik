@@ -65,8 +65,7 @@ while ($row = $result->fetch_assoc()) {
                 <li><a href="dashboard.php" class="active">Home</a></li>
                 <li><a href="quests.php">Quest</a></li>
                 <li><a href="recruit.php">Rekrut</a></li>
-                <li><a href="profile.php">Profil</a></li>
-                <li><a href="admin/login_admin.php">Admin</a></li>
+                <li><a href="../auth/logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>

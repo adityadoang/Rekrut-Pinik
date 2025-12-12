@@ -61,10 +61,12 @@ $stmt->close();
             width: 40px;
         }
 
+        
+
         .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 40px;
+        display: flex;
+        list-style: none;
+        gap: 40px;
         }
 
         .nav-menu a {
@@ -77,11 +79,11 @@ $stmt->close();
 
         .nav-menu a:hover,
         .nav-menu a.active {
-            color: red;
+            color: #ff6600;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: #f5f5f5;
             min-height: 100vh; s
         }
@@ -358,11 +360,10 @@ $stmt->close();
         <nav class="navbar">
             <div class="logo"><img src= "../assets/index-logo.png"></div>
             <ul class="nav-menu">
-                <li><a href="dashboard.php" class="active">Home</a></li>
+                <li><a href="dashboard.php">Home</a></li>
                 <li><a href="quests.php">Quest</a></li>
-                <li><a href="recruit.php">Rekrut</a></li>
-                <li><a href="profile.php">Profil</a></li>
-                <li><a href="admin/login_admin.php">Admin</a></li>
+                <li><a href="recruit.php" class="active">Rekrut</a></li>
+                <li><a href="../auth/logout.php">Logout</a></li>
             </ul>
         </nav>
     </header>

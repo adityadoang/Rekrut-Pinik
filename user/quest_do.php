@@ -24,6 +24,7 @@ if (!$quest) {
 $message = '';
 $is_submitted = false;
 $is_correct = false;
+$reward_points = 0;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $answer = $_POST['answer'] ?? null;
     if (!$answer) {
@@ -40,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->close();
         // Jika benar, tambahkan poin
         if ($is_correct) {
-            $reward = (int)$quest['reward_points'];
-            if ($reward > 0) {
-                addUserPoints($conn, $user_id, $reward);
+            $reward_points = (int)$quest['reward_points'];
+            if ($reward_points > 0) {
+                addUserPoints($conn, $user_id, $reward_points);
             }
-            $message = "Jawaban kamu benar! Kamu mendapatkan {$reward} poin.";
+            $message = "Selamat, poin yang kamu dapatkan: {$reward_points} poin.";
         } else {
             $message = "Jawaban kamu belum tepat. Coba lagi ya!";
         }
@@ -65,6 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     box-sizing: border-box;
 }
 
+*:focus {
+    outline: none;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #2d2d2d;
@@ -83,13 +88,12 @@ body {
     align-items: center;
     gap: 10px;
     margin-bottom: 30px;
-    color: #b8b8ff;
+    color: orange;
 }
 
 .level-icon {
     width: 30px;
     height: 30px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -101,16 +105,9 @@ body {
     font-weight: 500;
 }
 
-/* Quest Container */
-.quest-container {
-    border: 3px dashed #667eea;
-    border-radius: 30px;
-    padding: 3px;
-}
-
 /* Hero Section */
 .hero-section {
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23ff9a56;stop-opacity:1" /><stop offset="50%" style="stop-color:%23ff6b9d;stop-opacity:1" /><stop offset="100%" style="stop-color:%23764ba2;stop-opacity:1" /></linearGradient></defs><rect fill="url(%23sky)" width="1200" height="600"/></svg>');
+    background: url('../assets/phoenix-bg.jpeg');
     background-size: cover;
     background-position: center;
     border-radius: 30px 30px 0 0;
@@ -260,46 +257,112 @@ body {
 .result-section {
     background: linear-gradient(135deg, #e8e8e8 0%, #d4d4d4 100%);
     border-radius: 0 0 30px 30px;
+    padding: 80px;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-card {
+    background: white;
+    border-radius: 0 150px 150px 0;
     padding: 60px 80px;
     text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    max-width: 700px;
+    width: 100%;
 }
 
-.result-message {
-    font-size: 2em;
-    margin-bottom: 30px;
+.result-title {
+    font-size: 3em;
+    margin-bottom: 20px;
     color: #2d2d2d;
+    font-weight: 600;
 }
 
-.result-message.correct {
-    color: #28a745;
+.result-subtitle {
+    font-size: 1.3em;
+    color: #666;
+    margin-bottom: 30px;
 }
 
-.result-message.incorrect {
-    color: #dc3545;
+.points-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.coin-icon {
+    width: 80px;
+    height: 80px;
+}
+
+.coin-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.points-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff8c42;
 }
 
 .result-actions {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 .btn-back {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
     color: white;
     padding: 15px 40px;
     border-radius: 25px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.1em;
     display: inline-block;
     transition: all 0.3s;
-    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
 }
 
 .btn-back:hover {
     transform: translateY(-2px);
-    box-shadow: 0 7px 25px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 7px 25px rgba(255, 107, 53, 0.5);
+}
+
+.btn-secondary {
+    background: #2d2d2d;
+    color: white;
+    padding: 15px 40px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Incorrect Result */
+.result-card.incorrect .result-title {
+    color: #dc3545;
+}
+
+.result-card.incorrect .points-number {
+    color: #dc3545;
 }
 
 /* Hidden class */
@@ -322,8 +385,29 @@ body {
         font-size: 1.1em;
     }
     
-    .question-section, .result-section {
+    .question-section {
         padding: 40px 30px;
+    }
+    
+    .result-section {
+        padding: 40px 20px;
+    }
+    
+    .result-card {
+        padding: 40px 30px;
+        border-radius: 0 80px 80px 0;
+    }
+    
+    .result-title {
+        font-size: 2em;
+    }
+    
+    .result-subtitle {
+        font-size: 1.1em;
+    }
+    
+    .points-number {
+        font-size: 2.5em;
     }
     
     .options-container {
@@ -332,6 +416,15 @@ body {
     
     .question-section h3 {
         font-size: 1.4em;
+    }
+    
+    .result-actions {
+        flex-direction: column;
+    }
+    
+    .btn-back, .btn-secondary {
+        width: 100%;
+        text-align: center;
     }
 }
 </style>
@@ -395,13 +488,21 @@ body {
         </div>
         
         <div class="result-section">
-            <div class="result-message <?= $is_correct ? 'correct' : 'incorrect' ?>">
-                <?= htmlspecialchars($message) ?>
-            </div>
-            
-            <div class="result-actions">
-                <a href="quests.php" class="btn-back">Kembali ke Quest</a>
-                <a href="dashboard.php" class="btn-back">Dashboard</a>
+            <div class="result-card <?= $is_correct ? 'correct' : 'incorrect' ?>">
+                <h1 class="result-title"><?= $is_correct ? 'Selamat !!!' : 'Oops!' ?></h1>
+                <p class="result-subtitle">Total Poin Yang didapatkan</p>
+                
+                <div class="points-display">
+                    <div class="coin-icon">
+                        <img src="../assets/point.png" alt="Coin">
+                    </div>
+                    <div class="points-number"><?= str_pad($reward_points, 4, '0', STR_PAD_LEFT) ?></div>
+                </div>
+                
+                <div class="result-actions">
+                    <a href="quests.php" class="btn-back">Kembali ke Quest</a>
+                    <a href="dashboard.php" class="btn-secondary">Dashboard</a>
+                </div>
             </div>
         </div>
         <?php endif; ?>

@@ -34,7 +34,7 @@ $stmt->close();
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: gray;
     min-height: 100vh;
     padding-bottom: 50px;
@@ -45,7 +45,6 @@ header {
     padding: 0;
 }
 
-/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -77,11 +76,6 @@ header {
     font-size: 18px;
     font-weight: 500;
     transition: color 0.3s;
-}
-
-.nav-menu a:hover,
-.nav-menu a.active {
-    color: #ff6600;
 }
 
 .logout-btn {
@@ -274,17 +268,27 @@ header {
     color: #667eea;
 }
 
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #ff6600;
+}
+
 @media (max-width: 768px) {
-    .navbar {
-        flex-direction: column;
-        padding: 15px 20px;
-        gap: 15px;
-    }
-    
-    .nav-menu {
-        flex-direction: column;
-        gap: 10px;
-    }
     
     .header-section h1 {
         font-size: 2.5em;
@@ -311,10 +315,9 @@ header {
     <div class="logo"><img src= "../assets/index-logo.png"></div>
     <ul class="nav-menu">
         <li><a href="dashboard.php">Home</a></li>
-        <li><a href="quests.php">Quest</a></li>
+        <li><a href="quests.php" class="active">Quest</a></li>
         <li><a href="recruit.php">Rekrut</a></li>
-        <li><a href="profile.php">Profil</a></li>
-        <li><a href="admin/login_admin.php">Admin</a></li>
+        <li><a href="../auth/logout.php">Logout</a></li>
     </ul>
 </nav>
 </header>

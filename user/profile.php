@@ -120,7 +120,7 @@ $stmt->close();
             <li><a href="quests.php">Quest</a></li>
             <li><a href="rekrut.php">Rekrut</a></li>
             <li><a href="profil.php" class="active">Profil</a></li>
-            <li><a href="../admin/login_admin.php">Admin</a></li>
+            <li><a href="../logout.php">Logout</a></li>
         </ul>
     </nav>
 </header>
