@@ -152,7 +152,7 @@ if ($owned) {
 <body>
     <div class="modal-container <?php echo $status; ?>">
         <p class="message-text"><?php echo $message; ?></p>
-        <a href="rekrut_pros.php" class="back-link">Kembali ke daftar rekrut</a>
+        <a href="recruit.php" class="back-link">Kembali ke daftar rekrut</a>
     </div>
 </body>
 </html>
