@@ -125,14 +125,6 @@ if ($resultTopPhoenix) {
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 40px;
-            font-size: 18px;
-        }
-
-        /* ==================== STATISTICS CARDS ==================== */
         .cards {
             display: flex;
             gap: 4em;
@@ -437,7 +429,6 @@ if ($resultTopPhoenix) {
 
 <div class="container">
     <h1 class="page-title">Admin</h1>
-    <p class="subtitle">Ringkasan cepat data Quest dan Phoenix</p>
 
     <div class="cards">
         <div class="card">

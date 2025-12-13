@@ -346,7 +346,7 @@ header {
         ?>
         <div class="quest-card" style="margin-left: <?= ($level - 1) * 10 ?>em;">
             <div class="quest-content">
-                <h3>Menangkan <?php echo ($level === 1) ? 'Question' : 'level ' . $level; ?> untuk mendapatkan banyak poin<?php echo ($level === 1) ? '' : ' dan lanjut ke level ' . ($level + 1); ?></h3>
+                <h3>Menangkan <?php echo ($level === 1) ? 'Question' : 'level ' . $level; ?> untuk mendapatkan banyak poin</h3>
                 <a href="quest_do.php?id=<?php echo (int)$q['id']; ?>" class="start-btn">Mulai</a>
             </div>
         </div>
