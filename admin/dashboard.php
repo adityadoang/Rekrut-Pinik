@@ -1,16 +1,11 @@
 <?php
-/**
- * Admin Dashboard
- * Halaman utama dashboard admin untuk mengelola Quest dan Phoenix
- */
 
-// Autentikasi admin
+
 require_once '../includes/auth_admin.php';
 require_once '../config/db.php';
 
 // ==================== DATA FETCHING ====================
 
-// Inisialisasi variabel
 $questCount = 0;
 $phoenixCount = 0;
 $quests = [];
@@ -30,20 +25,26 @@ if ($resultPhoenix) {
     $phoenixCount = (int)($rowPhoenix['total'] ?? 0);
 }
 
-// Ambil 10 quest terbaru
-$stmtQuest = $conn->query("SELECT id, title, reward_points FROM quests ORDER BY id ASC LIMIT 10");
-if ($stmtQuest) {
-    while ($row = $stmtQuest->fetch_assoc()) {
-        $quests[] = $row;
-    }
+// TOP 5 Quest berdasarkan reward_points terbesar
+$resultTopQuest = $conn->query("
+    SELECT id, title, reward_points
+    FROM quests
+    ORDER BY reward_points DESC, id DESC
+    LIMIT 5
+");
+if ($resultTopQuest) {
+    $quests = $resultTopQuest->fetch_all(MYSQLI_ASSOC);
 }
 
-// Ambil 10 phoenix terbaru
-$stmtPhoenix = $conn->query("SELECT id, name, image, req_points, description FROM phoenix ORDER BY id ASC LIMIT 10");
-if ($stmtPhoenix) {
-    while ($row = $stmtPhoenix->fetch_assoc()) {
-        $phoenixList[] = $row;
-    }
+// TOP 5 Phoenix berdasarkan req_points terbesar
+$resultTopPhoenix = $conn->query("
+    SELECT id, name, image, req_points, description
+    FROM phoenix
+    ORDER BY req_points DESC, id DESC
+    LIMIT 5
+");
+if ($resultTopPhoenix) {
+    $phoenixList = $resultTopPhoenix->fetch_all(MYSQLI_ASSOC);
 }
 ?>
 <!DOCTYPE html>
@@ -321,7 +322,7 @@ if ($stmtPhoenix) {
         /* Phoenix Table Grid */
         .phoenix-table-header,
         .phoenix-row {
-            grid-template-columns: 0.4fr 1fr 1.5fr 0.8fr 2.5fr 1.5fr;
+            grid-template-columns: 1fr 1.5fr 0.8fr 2.5fr 1.5fr; /* DIUBAH GRIDNYA KRN ID DIHILANGKAN */
             gap: 12px;
         }
 
@@ -330,18 +331,13 @@ if ($stmtPhoenix) {
             text-align: center;
         }
 
-        .phoenix-table-header > div:nth-child(2),
-        .phoenix-row > div:nth-child(2) {
+        .phoenix-table-header > div:nth-child(3),
+        .phoenix-row > div:nth-child(3) {
             text-align: center;
         }
 
-        .phoenix-table-header > div:nth-child(4),
-        .phoenix-row > div:nth-child(4) {
-            text-align: center;
-        }
-
-        .phoenix-table-header > div:nth-child(6),
-        .phoenix-row > div:nth-child(6) {
+        .phoenix-table-header > div:nth-child(5),
+        .phoenix-row > div:nth-child(5) {
             text-align: center;
         }
 
@@ -391,7 +387,7 @@ if ($stmtPhoenix) {
             }
         }
 
-                    @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
                 padding: 20px;
@@ -425,144 +421,116 @@ if ($stmtPhoenix) {
     </style>
 </head>
 <body>
-    <!-- ==================== NAVIGATION ==================== -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="../assets/index-logo.png" alt="Logo">
-            </div>
-            <ul class="nav-menu">
-                <li><a href="dashboard.php" class="active">Home</a></li>
-                <li><a href="#kelola-quest">Kelola Quest</a></li>
-                <li><a href="#kelola-phoenix">Kelola Phoenix</a></li>
-                <li><a href="../auth/logout.php">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../assets/index-logo.png" alt="Logo">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="dashboard.php" class="active">Dashboard</a></li>
+            <li><a href="quest_list.php">Kelola Quest</a></li>
+            <li><a href="phoenix_list.php">Kelola Phoenix</a></li>
+            <li><a href="../auth/logout.php">Logout</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <!-- ==================== MAIN CONTENT ==================== -->
-    <div class="container">
-        <h1 class="page-title">Admin</h1>
-        <p class="subtitle">Ringkasan cepat data Quest dan Phoenix</p>
+<div class="container">
+    <h1 class="page-title">Admin</h1>
+    <p class="subtitle">Ringkasan cepat data Quest dan Phoenix</p>
 
-        <!-- Statistics Cards -->
-        <div class="cards">
-            <div class="card">
-                <h2>Total Phoenix</h2>
-                <div class="number"><?= str_pad($phoenixCount, 5, '0', STR_PAD_LEFT) ?></div>
-            </div>
-            <div class="card">
-                <h2>Total Quest</h2>
-                <div class="number"><?= str_pad($questCount, 5, '0', STR_PAD_LEFT) ?></div>
-            </div>
+    <div class="cards">
+        <div class="card">
+            <h2>Total Phoenix</h2>
+            <div class="number"><?= str_pad($phoenixCount, 5, '0', STR_PAD_LEFT) ?></div>
+        </div>
+        <div class="card">
+            <h2>Total Quest</h2>
+            <div class="number"><?= str_pad($questCount, 5, '0', STR_PAD_LEFT) ?></div>
+        </div>
+    </div>
+
+    <!-- TOP 5 QUEST -->
+    <section class="section" id="kelola-quest">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="kelola">TOP 5</span>
+                <span class="quest">Quest</span>
+            </h2>
+            <button class="btn btn-add" onclick="window.location.href='quest_form.php'">+ Tambah Quest</button>
         </div>
 
-        <!-- ==================== QUEST SECTION ==================== -->
-        <section class="section" id="kelola-quest">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <span class="kelola">Kelola</span> 
-                    <span class="quest">Quest</span>
-                </h2>
-                <button class="btn btn-add" onclick="window.location.href='quest_form.php'">
-                    + Tambah Quest
-                </button>
+        <div class="table-container">
+            <div class="table-header quest-table-header">
+                <div>Judul</div>
+                <div>Reward Poin</div>
+                <div>Aksi</div>
             </div>
 
-            <div class="table-container">
-                <div class="table-header quest-table-header">
-                    <div>Judul</div>
-                    <div>Reward Poin</div>
-                    <div>Aksi</div>
+            <?php if (empty($quests)): ?>
+                <div class="table-row quest-row">
+                    <div class="empty-state">Belum ada quest. Silakan tambahkan quest baru.</div>
                 </div>
-
-                <?php if (empty($quests)): ?>
+            <?php else: ?>
+                <?php foreach ($quests as $quest): ?>
                     <div class="table-row quest-row">
-                        <div class="empty-state">
-                            Belum ada quest. Silakan tambahkan quest baru.
+                        <div><?= htmlspecialchars($quest['title'] ?? '-') ?></div>
+                        <div><?= str_pad((string)($quest['reward_points'] ?? '0'), 2, '0', STR_PAD_LEFT) ?></div>
+                        <div class="action-buttons">
+                            <button class="btn btn-edit" onclick="window.location.href='quest_form.php?id=<?= (int)$quest['id'] ?>'">Edit</button>
+                            <button class="btn btn-delete" onclick="if(confirm('Yakin hapus quest ini?')) window.location.href='quest_delete.php?id=<?= (int)$quest['id'] ?>'">Hapus</button>
                         </div>
                     </div>
-                <?php else: ?>
-                    <?php foreach ($quests as $quest): ?>
-                        <div class="table-row quest-row">
-                            <div><?= htmlspecialchars($quest['title']) ?></div>
-                            <div>
-                                <?= str_pad($quest['reward_points'], 2, '0', STR_PAD_LEFT) ?>
-                            </div>
-                            <div class="action-buttons">
-                                <button class="btn btn-edit" 
-                                        onclick="window.location.href='quest_form.php?id=<?= $quest['id'] ?>'">
-                                    Edit
-                                </button>
-                                <button class="btn btn-delete" 
-                                        onclick="if(confirm('Yakin hapus quest ini?')) window.location.href='quest_delete.php?id=<?= $quest['id'] ?>'">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <!-- TOP 5 PHOENIX (TANPA ID) -->
+    <section class="section" id="kelola-phoenix">
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="kelola">TOP 5</span>
+                <span class="phoenix">Phoenix</span>
+            </h2>
+            <button class="btn btn-add" onclick="window.location.href='phoenix_form.php'">+ Tambah Phoenix</button>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header phoenix-table-header">
+                <div>Gambar</div>
+                <div>Nama</div>
+                <div>Poin</div>
+                <div>Deskripsi</div>
+                <div>Aksi</div>
             </div>
 
-        </section>
-
-        <!-- ==================== PHOENIX SECTION ==================== -->
-        <section class="section" id="kelola-phoenix">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <span class="kelola">Kelola</span> 
-                    <span class="phoenix">Phoenix</span>
-                </h2>
-                <button class="btn btn-add" onclick="window.location.href='phoenix_form.php'">
-                    + Tambah Phoenix
-                </button>
-            </div>
-
-            <div class="table-container">
-                <div class="table-header phoenix-table-header">
-                    <div>ID</div>
-                    <div>Gambar</div>
-                    <div>Nama</div>
-                    <div>Poin</div>
-                    <div>Deskripsi</div>
-                    <div>Aksi</div>
+            <?php if (empty($phoenixList)): ?>
+                <div class="table-row phoenix-row">
+                    <div class="empty-state">Belum ada phoenix. Silakan tambahkan phoenix baru.</div>
                 </div>
-
-                <?php if (empty($phoenixList)): ?>
+            <?php else: ?>
+                <?php foreach ($phoenixList as $phoenix): ?>
                     <div class="table-row phoenix-row">
-                        <div class="empty-state">
-                            Belum ada phoenix. Silakan tambahkan phoenix baru.
+                        <div>
+                            <img src="../uploads/phoenix/<?= htmlspecialchars($phoenix['image'] ?? '') ?>"
+                                 alt="<?= htmlspecialchars($phoenix['name'] ?? '') ?>"
+                                 class="phoenix-image"
+                                 onerror="this.onerror=null;this.style.display='none';">
+                        </div>
+                        <div><?= htmlspecialchars($phoenix['name'] ?? '-') ?></div>
+                        <div><?= htmlspecialchars($phoenix['req_points'] ?? '-') ?></div>
+                        <div><?= htmlspecialchars($phoenix['description'] ?? '-') ?></div>
+                        <div class="action-buttons">
+                            <button class="btn btn-edit" onclick="window.location.href='phoenix_form.php?id=<?= (int)$phoenix['id'] ?>'">Edit</button>
+                            <button class="btn btn-delete" onclick="if(confirm('Yakin hapus phoenix ini?')) window.location.href='phoenix_delete.php?id=<?= (int)$phoenix['id'] ?>'">Hapus</button>
                         </div>
                     </div>
-                <?php else: ?>
-                    <?php foreach ($phoenixList as $phoenix): ?>
-                        <div class="table-row phoenix-row">
-                            <div><?= $phoenix['id'] ?></div>
-                            <div>
-                                <img src="../uploads/phoenix/<?= htmlspecialchars($phoenix['image']) ?>" 
-                                     alt="<?= htmlspecialchars($phoenix['name']) ?>" 
-                                     class="phoenix-image">
-                            </div>
-                            <div><?= htmlspecialchars($phoenix['name']) ?></div>
-                            <div>
-                                <?= $phoenix['req_points'] ?>
-                            </div>
-                            <div><?= htmlspecialchars($phoenix['description']) ?></div>
-                            <div class="action-buttons">
-                                <button class="btn btn-edit" 
-                                        onclick="window.location.href='phoenix_form.php?id=<?= $phoenix['id'] ?>'">
-                                    Edit
-                                </button>
-                                <button class="btn btn-delete" 
-                                        onclick="if(confirm('Yakin hapus phoenix ini?')) window.location.href='phoenix_delete.php?id=<?= $phoenix['id'] ?>'">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
-        </section>
-    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </section>
+
+</div>
 </body>
 </html>

@@ -17,7 +17,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if ($user && password_verify($password, $user['password'])) {
+        // ===================== FIX LOGIC =====================
+        // Support password yang sudah di-hash (password_hash) dan password lama yang masih plaintext.
+        $login_ok = false;
+        if ($user) {
+            $dbPass = $user['password'];
+
+            // kalau hash -> password_verify akan true
+            if (password_verify($password, $dbPass)) {
+                $login_ok = true;
+            } else {
+                // fallback untuk data lama/plaintext (tanpa mengubah flow)
+                if (hash_equals((string)$dbPass, (string)$password)) {
+                    $login_ok = true;
+                }
+            }
+        }
+        // =====================================================
+
+        if ($login_ok) {
             // login sukses
             $_SESSION['user_id']  = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -57,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         <a class="button" href="login_admin.php">Login sebagai Admin</a>
     </div>
-
 
 </body>
 </html>
