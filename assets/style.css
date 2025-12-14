@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(to bottom, 
@@ -13,13 +17,14 @@ body {
         #b5b5b5 30%);
     color: #fff;
     min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 header {
     background-color: rgb(175, 72, 38);
     padding: 0;
 }
-
 
 .navbar {
     display: flex;
@@ -38,14 +43,14 @@ header {
 
 .logo img {
     width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
-
-
 .nav-menu {
-display: flex;
-list-style: none;
-gap: 40px;
+    display: flex;
+    list-style: none;
+    gap: 40px;
 }
 
 .nav-menu a {
@@ -332,85 +337,377 @@ gap: 40px;
     font-size: 16px;
 }
 
-/* RESPONSIVE */
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablet Large (1024px - 1400px) */
 @media (max-width: 1400px) {
     .phoenix-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
+        gap: 20px;
     }
 }
 
+/* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
+    .navbar {
+        padding: 20px 30px;
+    }
+    
+    .container {
+        padding: 0 30px;
+    }
+    
     .phoenix-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
+        gap: 20px;
+    }
+    
+    .hero-section {
+        height: auto;
+        min-height: 60vh;
+        border-radius: 0px 0px 50px 50px;
     }
     
     .content-wrapper {
         flex-direction: column;
-        gap: 40px;
+        min-width: auto;
+        gap: 2em;
+        margin: 2em 1.5em;
+        padding: 25px 35px;
+        border-radius: 0px 100px 100px 50px;
+    }
+    
+    .phoenix-circle {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .phoenix-icon {
+        width: 150px;
+        height: 150px;
     }
 }
 
+/* Mobile Large (600px - 768px) */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
-        gap: 20px;
-        padding: 20px;
+        gap: 15px;
+        padding: 15px 20px;
     }
-
+    
     .nav-menu {
-        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
         font-size: 16px;
     }
-
-    .content-wrapper {
-        padding: 30px 20px;
-        min-width: auto;
+    
+    .hero-section {
+        min-height: 50vh;
+        border-radius: 0px 0px 40px 40px;
     }
-
+    
+    .content-wrapper {
+        padding: 20px 30px;
+        margin: 1.5em 1em;
+        gap: 1.5em;
+    }
+    
     .points-card {
         padding: 15px 30px;
     }
-
+    
     .points-amount {
-        font-size: 28px;
-    }
-
-    .cta-card {
-        padding: 20px 30px;
-    }
-
-    .cta-text {
         font-size: 22px;
     }
-
-    .phoenix-circle {
-        width: 200px;
-        height: 200px;
+    
+    .cta-text {
+        font-size: 20px;
     }
-
-    .phoenix-icon {
-        width: 130px;
-        height: 130px;
-    }
-
+    
     .container {
         padding: 0 20px;
     }
-
+    
     .section-title {
-        font-size: 32px;
-        margin-bottom: 30px;
+        font-size: 36px;
+        margin-bottom: 35px;
     }
-
+    
+    /* FORCE 2 KOLOM DI MOBILE */
     .phoenix-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
     }
+}
 
+/* Mobile (480px - 600px) */
+@media (max-width: 600px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .navbar {
+        gap: 12px;
+        padding: 12px 15px;
+    }
+    
+    .logo img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .nav-menu {
+        gap: 10px;
+        font-size: 14px;
+    }
+    
+    .hero-section {
+        min-height: 45vh;
+        border-radius: 0px 0px 30px 30px;
+    }
+    
+    .content-wrapper {
+        padding: 18px 25px;
+        margin: 1.2em 0.8em;
+        border-radius: 0px 70px 70px 35px;
+        gap: 1.2em;
+        max-width: calc(100% - 1.6em);
+    }
+    
+    .points-card {
+        padding: 12px 25px;
+    }
+    
+    .coin-icon {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .points-amount {
+        font-size: 20px;
+    }
+    
+    .cta-card {
+        padding: 15px 20px;
+        margin-top: 15px;
+    }
+    
+    .cta-text {
+        font-size: 18px;
+    }
+    
+    .phoenix-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .phoenix-icon {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .container {
+        padding: 0 15px;
+        overflow: hidden;
+    }
+    
+    .section-title {
+        font-size: 28px;
+        margin-bottom: 25px;
+    }
+    
+    /* FORCE 2 KOLOM */
+    .phoenix-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 0;
+    }
+    
+    .phoenix-card {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    
+    .card-title {
+        font-size: 14px;
+    }
+    
+    .card-footer {
+        padding: 12px;
+        gap: 10px;
+    }
+    
     .card-image {
-        width: calc(100% - 20px);
-        margin: 10px auto 0;
+        width: calc(100% - 16px);
+        margin: 8px auto 0;
+    }
+    
+    .price-tag {
+        padding: 6px 15px;
+    }
+    
+    .price {
+        font-size: 14px;
+    }
+}
+
+/* Small Mobile (360px - 480px) */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    .nav-menu {
+        gap: 8px;
+        font-size: 13px;
+    }
+    
+    .hero-section {
+        min-height: 40vh;
+        border-radius: 0px 0px 25px 25px;
+    }
+    
+    .content-wrapper {
+        margin: 1em 0.5em;
+        padding: 15px 20px;
+        max-width: calc(100% - 1em);
+    }
+    
+    .cta-text {
+        font-size: 16px;
+    }
+    
+    .recommendation-section {
+        padding: 40px 0;
+    }
+    
+    .section-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    
+    /* FORCE 2 KOLOM DI MOBILE KECIL */
+    .phoenix-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 0 5px;
+    }
+    
+    .phoenix-card {
+        max-width: 100%;
+        border-radius: 15px;
+        margin: 0;
+    }
+    
+    .card-title {
+        font-size: 13px;
+    }
+    
+    .card-footer {
+        padding: 10px;
+        gap: 8px;
+    }
+    
+    .card-image {
+        width: calc(100% - 14px);
+        margin: 7px auto 0;
+    }
+    
+    .favorite-btn {
+        width: 28px;
+        height: 28px;
+        top: 6px;
+        right: 6px;
+    }
+    
+    .heart {
+        font-size: 13px;
+    }
+    
+    .price-tag {
+        padding: 6px 12px;
+    }
+    
+    .price {
+        font-size: 13px;
+    }
+    
+    .price-tag .coin-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Extra Small Mobile (< 360px) */
+@media (max-width: 360px) {
+    .navbar {
+        padding: 10px 12px;
+    }
+    
+    .logo img {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .nav-menu {
+        font-size: 12px;
+        gap: 6px;
+    }
+    
+    .content-wrapper {
+        margin: 0.8em 0.3em;
+        padding: 12px 15px;
+        max-width: calc(100% - 0.6em);
+    }
+    
+    .section-title {
+        font-size: 20px;
+    }
+    
+    /* FORCE 2 KOLOM */
+    .phoenix-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+        padding: 0 3px;
+    }
+    
+    .card-title {
+        font-size: 12px;
+    }
+    
+    .card-footer {
+        padding: 8px;
+        gap: 6px;
+    }
+    
+    .card-image {
+        width: calc(100% - 12px);
+        margin: 6px auto 0;
+    }
+    
+    .price {
+        font-size: 12px;
+    }
+    
+    .price-tag {
+        padding: 5px 10px;
+    }
+    
+    .price-tag .coin-icon {
+        width: 14px;
+        height: 14px;
+    }
+    
+    .favorite-btn {
+        width: 24px;
+        height: 24px;
+        top: 5px;
+        right: 5px;
+    }
+    
+    .heart {
+        font-size: 11px;
     }
 }

@@ -1,21 +1,16 @@
 <?php
 // auth/login_admin.php
-
 session_start();
 require_once '../config/db.php';
-
 $error = '';
-
 // Kalau sudah login sebagai admin, langsung lempar ke dashboard
 if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') === 'admin') {
     header('Location: ../admin/dashboard.php');
     exit;
 }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
-
     if ($username === '' || $password === '') {
         $error = 'Username dan password wajib diisi.';
     } else {
@@ -28,10 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
             $result = $stmt->get_result();
             $admin = $result->fetch_assoc();
-
             if ($admin) {
                 $hash = $admin['password'];
-
                 // Support 2 kondisi:
                 // 1) password di database sudah di-hash (password_hash)
                 // 2) password di database masih plain text
@@ -40,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['user_id']  = $admin['id'];
                     $_SESSION['username'] = $admin['username'];
                     $_SESSION['role']     = $admin['role']; // harus 'admin'
-
                     // Redirect ke dashboard admin
                     header('Location: ../admin/dashboard.php');
                     exit;
@@ -50,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 $error = 'Username atau password salah.';
             }
-
             $stmt->close();
         }
     }
@@ -60,101 +51,238 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-    * { 
-        margin: 0; 
-        padding: 0; 
-        box-sizing: border-box; }
-    body {
-    color: #fff;
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-}
-.login-wrapper {
-    background: rgba(0, 0, 0, 0.35) url('../assets/phoenix-bg.jpeg') center/cover no-repeat;
-    padding: 40px;
-    border-radius: 16px;
-    border: 2px solid #981008;
-    box-shadow: 0 0 40px black;
-    max-width: 500px;
-    width: 100%;
-}
-.login-title {
-    font-family: 'Press Start 2P', sans-serif;
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 30px;
-}
-label {
-    font-size: 18px;
-    margin-bottom: 8px;
-    display: block;
-    font-family: 'Courier New', Courier, monospace;
-}
-input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 20px;
-    border: 2px solid #981008;
-    background: rgba(0, 0, 0, 0.55);
-    color: white;
-}
-button, .button {
-    font-family: 'Courier New', Courier, monospace;
-    display: block;
-    margin: 0 auto;
-    padding: 12px 48px;
-    background-color: #981008;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 18px;
-    width: fit-content;
-}
-
-.button {
-    margin-top: 1em;
-}
-
-button:hover, .button:hover {
-    filter: brightness(1.1);
-}
-
-.message {
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-}
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .login-wrapper {
+            background: rgba(0, 0, 0, 0.35) url('../assets/phoenix-bg.jpeg') center/cover no-repeat;
+            padding: 40px;
+            border-radius: 16px;
+            border: 2px solid #981008;
+            box-shadow: 0 0 40px black;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .login-title {
+            font-family: 'Press Start 2P', sans-serif;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+        
+        label {
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: block;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            border: 2px solid #981008;
+            background: rgba(0, 0, 0, 0.55);
+            color: white;
+            font-size: 16px;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #ff1810;
+            box-shadow: 0 0 10px rgba(152, 16, 8, 0.5);
+        }
+        
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        button, .button {
+            font-family: 'Courier New', Courier, monospace;
+            display: block;
+            margin: 0 auto;
+            padding: 12px 48px;
+            background-color: #981008;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            width: fit-content;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .button {
+            margin-top: 1em;
+        }
+        
+        button:hover, .button:hover {
+            filter: brightness(1.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(152, 16, 8, 0.5);
+        }
+        
+        button:active, .button:active {
+            transform: translateY(0);
+        }
+        
+        .message {
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(152, 16, 8, 0.2);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #981008;
+            color: #ff6b6b;
+        }
+        
+        /* ==================== RESPONSIVE ==================== */
+        
+        /* Tablet */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .login-wrapper {
+                padding: 30px 25px;
+                max-width: 100%;
+            }
+            
+            .login-title {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+            
+            label {
+                font-size: 16px;
+            }
+            
+            input {
+                padding: 10px;
+                font-size: 16px;
+            }
+            
+            button, .button {
+                padding: 10px 40px;
+                font-size: 16px;
+                width: 100%;
+            }
+        }
+        
+        /* Mobile */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .login-wrapper {
+                padding: 25px 20px;
+                border-radius: 12px;
+            }
+            
+            .login-title {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            
+            label {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+            
+            input {
+                padding: 10px 12px;
+                margin-bottom: 15px;
+                font-size: 14px;
+                border-radius: 15px;
+            }
+            
+            button, .button {
+                padding: 10px 30px;
+                font-size: 14px;
+                border-radius: 15px;
+                width: 100%;
+            }
+            
+            .button {
+                margin-top: 0.8em;
+            }
+            
+            .message {
+                font-size: 13px;
+                padding: 8px;
+            }
+        }
+        
+        /* Very Small Mobile */
+        @media (max-width: 360px) {
+            .login-title {
+                font-size: 16px;
+            }
+            
+            label {
+                font-size: 13px;
+            }
+            
+            input {
+                font-size: 13px;
+            }
+            
+            button, .button {
+                font-size: 13px;
+                padding: 8px 25px;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container">
     <div class="login-wrapper">
         <h1 class="login-title">Login Admin</h1>
         <?php if ($error): ?>
-            <p class="message" style="color:red;"><?= htmlspecialchars($error) ?></p>
+            <p class="message"><?= htmlspecialchars($error) ?></p>
         <?php endif; ?>
         <form method="POST" action="">
             <label for="username">Username</label>
             <input id="username" type="text" name="username" placeholder="Username" required>
+            
             <label for="password">Password</label>
             <input id="password" type="password" name="password" placeholder="Password" required>
+            
             <button type="submit">Login</button>
         </form>
-
-        <a class="button" href="login_user.php">Login sebagai User</a></p>
+        <a class="button" href="login_user.php">Login sebagai User</a>
     </div>
-</div>
 </body>
 </html>
