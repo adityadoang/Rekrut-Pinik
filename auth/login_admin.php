@@ -1,12 +1,9 @@
 <?php
-// auth/login_admin.php
-
 session_start();
 require_once '../config/db.php';
 
 $error = '';
 
-// Kalau sudah login sebagai admin, langsung lempar ke dashboard
 if (isset($_SESSION['user_id']) && ($_SESSION['role'] ?? '') === 'admin') {
     header('Location: ../admin/dashboard.php');
     exit;
@@ -32,16 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($admin) {
                 $hash = $admin['password'];
 
-                // Support 2 kondisi:
-                // 1) password di database sudah di-hash (password_hash)
-                // 2) password di database masih plain text
+
                 if (password_verify($password, $hash) || $password === $hash) {
-                    // Set session admin
                     $_SESSION['user_id']  = $admin['id'];
                     $_SESSION['username'] = $admin['username'];
-                    $_SESSION['role']     = $admin['role']; // harus 'admin'
+                    $_SESSION['role']     = $admin['role']; 
 
-                    // Redirect ke dashboard admin
                     header('Location: ../admin/dashboard.php');
                     exit;
                 } else {

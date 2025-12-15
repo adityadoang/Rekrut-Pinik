@@ -6,7 +6,7 @@ $name        = '';
 $description = '';
 $req_points  = 0;
 $image       = '';
-// MODE EDIT
+
 if ($id > 0) {
 $res = $conn->query("SELECT * FROM phoenix WHERE id = $id");
 if ($res && $res->num_rows > 0) {
@@ -17,16 +17,16 @@ $req_points  = (int)$data['req_points'];
 $image       = $data['image'];
     }
 }
-// HANDLE SUBMIT
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $id          = isset($_POST['id']) ? (int)$_POST['id'] : 0;
 $name        = $_POST['name'] ?? '';
 $description = $_POST['description'] ?? '';
 $req_points  = isset($_POST['req_points']) ? (int)$_POST['req_points'] : 0;
-// image lama (kalau mode edit)
+
 $old_image = $_POST['old_image'] ?? '';
 $image     = $old_image;
-// proses upload gambar baru (opsional)
+
 if (!empty($_FILES['image']['name'])) {
 $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
 $ext = strtolower($ext);

@@ -314,7 +314,7 @@ if ($resultTopPhoenix) {
         /* Phoenix Table Grid */
         .phoenix-table-header,
         .phoenix-row {
-            grid-template-columns: 1fr 1.5fr 0.8fr 2.5fr 1.5fr; /* DIUBAH GRIDNYA KRN ID DIHILANGKAN */
+            grid-template-columns: 1fr 1.5fr 0.8fr 2.5fr 1.5fr; 
             gap: 12px;
         }
 

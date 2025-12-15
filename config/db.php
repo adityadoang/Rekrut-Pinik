@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $user = 'root';
-$pass = ''; // sesuaikan
+$pass = ''; 
 $db   = 'phoenix_db';
 
 $conn = new mysqli($host, $user, $pass, $db);
@@ -25,10 +25,6 @@ function getUserPoints($conn, $userId)
     return $res ? (int)$res['points'] : 0;
 }
 
-/**
- * Tambah/kurangi poin user.
- * $points bisa negatif untuk mengurangi poin.
- */
 function addUserPoints($conn, $userId, $points)
 {
     $stmt = $conn->prepare("UPDATE users SET points = points + ? WHERE id = ?");

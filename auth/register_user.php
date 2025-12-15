@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Username dan password wajib diisi.';
     } else {
         // cek apakah username sudah dipakai
-        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? LIMIT 1");
         if (!$stmt) {
             $message = "Error prepare: " . $conn->error;
         } else {
@@ -21,32 +21,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute();
             $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
+            if ($result && $result->num_rows > 0) {
                 $message = 'Username sudah digunakan.';
             } else {
                 // hash password
-                $hash = password_hash($password, PASSWORD_BCRYPT);
+                $hash = password_hash($password, PASSWORD_DEFAULT);
 
-                // insert user baru dengan role 'user' dan atribut awal 0
-                $stmt = $conn->prepare("
-                    INSERT INTO users 
-                        (username, password, role, element_fire, element_water, element_ice, element_wind, element_earth, intelligence)
-                    VALUES 
-                        (?, ?, 'user', 0, 0, 0, 0, 0, 0)
+
+                $role   = 'user';
+                $points = 0;
+                $avatar = null;
+
+                $insert = $conn->prepare("
+                    INSERT INTO users (username, password, role, points, avatar)
+                    VALUES (?, ?, ?, ?, ?)
                 ");
 
-                if (!$stmt) {
+                if (!$insert) {
                     $message = "Error prepare insert: " . $conn->error;
                 } else {
-                    $stmt->bind_param('ss', $username, $hash);
+                    $insert->bind_param('sssis', $username, $hash, $role, $points, $avatar);
 
-                    if ($stmt->execute()) {
+                    if ($insert->execute()) {
                         $message = 'Registrasi berhasil. Silakan login.';
                     } else {
-                        $message = 'Gagal registrasi: ' . $conn->error;
+                        if ($conn->errno == 1062) {
+                            $message = 'Username sudah digunakan.';
+                        } else {
+                            $message = 'Gagal registrasi: ' . $conn->error;
+                        }
                     }
+                    $insert->close();
                 }
             }
+
+            $stmt->close();
         }
     }
 }
@@ -127,6 +136,7 @@ button:hover, .button:hover {
 .message {
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 12px;
 }
     </style>
 </head>
@@ -135,13 +145,16 @@ button:hover, .button:hover {
     <div class="register-wrapper">
         <h1 class="register-title">Register</h1>
         <?php if ($message): ?>
-            <p class="message" ><?= htmlspecialchars($message) ?></p>
+            <p class="message"><?= htmlspecialchars($message) ?></p>
         <?php endif; ?>
+
         <form method="POST">
             <label for="username">Username</label>
             <input id="username" type="text" name="username" placeholder="Username" required>
+
             <label for="password">Password</label>
-            <input id="password" name="password" placeholder="Password" required>
+            <input id="password" type="password" name="password" placeholder="Password" required>
+
             <button type="submit">Register</button>
         </form>
 

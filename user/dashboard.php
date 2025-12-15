@@ -47,7 +47,6 @@ if ($result) {
     <title>Phoenix Home</title>
     <link rel="stylesheet" href="../assets/style.css?v=<?php echo time(); ?>">
     <style>
-        /* FORCE 4 COLUMNS - Inline CSS untuk override */
         .phoenix-grid {
             display: grid !important;
             grid-template-columns: repeat(4, 1fr) !important;
@@ -124,7 +123,6 @@ if ($result) {
     </section>
 
     <script>
-        // Toggle favorite
         document.querySelectorAll('.favorite-btn').forEach(btn => {
             btn.addEventListener('click', function() {
                 const heart = this.querySelector('.heart');

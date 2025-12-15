@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correct_option = substr($correct_option, 0, 1);
 
     if ($id > 0) {
-        // UPDATE (8 string + 2 integer)
+
         $stmt = $conn->prepare("
             UPDATE quests
                SET title = ?, description = ?, question_text = ?,
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $correct_option, $reward_points, $id
         );
     } else {
-        // INSERT (8 string + 1 integer)
+
         $stmt = $conn->prepare("
             INSERT INTO quests
                 (title, description, question_text,
